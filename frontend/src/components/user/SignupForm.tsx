@@ -1,7 +1,5 @@
 import {
-  AlertIcon,
   Button,
-  CloseButton,
   Container,
   Heading,
   Stack,
@@ -77,9 +75,9 @@ const SignupForm = () => {
       )}
       <Formik
         validateOnChange
-        isInitialValid={false}
+        isInitialValid={true}
         initialValues={initialValues}
-        validateOnMount
+        validateOnMount={false}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >

@@ -1,11 +1,7 @@
 import {
   Button,
   Container,
-  FormControl,
   Heading,
-  Input,
-  InputGroup,
-  InputLeftElement,
   Stack,
 } from "@chakra-ui/react";
 import UserIcon from "@ant-design/icons/UserOutlined";

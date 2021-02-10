@@ -12,6 +12,8 @@ import React, { FC, ReactNode } from "react";
 
 import CheckIcon from "@ant-design/icons/CheckSquareFilled";
 
+import ErrorIcon from "@ant-design/icons/ExclamationCircleOutlined";
+
 interface Props extends InputProps {
   inputLeftElement?: ReactNode;
   name: string;
@@ -37,24 +39,29 @@ const TextField: FC<Props> = ({
           field, // { name, value, onChange, onBlur
           meta,
         }:FieldProps) => (
-          <FormControl isInvalid={!meta.error}>
-            {/* uso invalid como valid porque _valid no funciona (solo para los estilos)*/}
+          <FormControl   >
+
             <InputGroup>
               <InputLeftElement>{inputLeftElement}</InputLeftElement>
               <Input
                 {...inputProps}
                 {...field}
-                _invalid={{ borderColor: "green.200" }}
+                
+                borderColor={ meta.touched ? (!!meta.error ? "red.500" :"green.200"):"#CBD5E0"}
               />
             </InputGroup>
             {helperText && !(showHelpIfValid && !meta.error) && <FormHelperText>{helperText}</FormHelperText>}
             {meta.touched && meta.error && (
-              <FormHelperText color="red.500">{meta.error}</FormHelperText>
+              <FormHelperText textAlign="left" color="red.500">
+                 <Stack isInline >
+                 <div><ErrorIcon/></div>
+                  <div> {meta.error}</div>
+                </Stack></FormHelperText>
             )}
             {validMessage && !meta.error && (
               <FormHelperText color="green.500">
                 <Stack isInline align="center">
-                  <CheckIcon />
+                <div><CheckIcon /></div>
                   <div> {validMessage}</div>
                 </Stack>
               </FormHelperText>
