@@ -18,6 +18,7 @@ public class EntodoResponseEntityExceptionHandler extends ResponseEntityExceptio
 
     @ExceptionHandler(Exception.class)
     public final ResponseEntity<Object> handleAllExceptions(Exception ex, WebRequest request) {
+        ex.printStackTrace();
         final HttpStatus status = HttpStatus.INTERNAL_SERVER_ERROR;
         ErrorResponse exceptionResponse = new ErrorResponse(status.value(), request.getDescription(false));
 
