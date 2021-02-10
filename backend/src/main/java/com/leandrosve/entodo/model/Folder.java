@@ -6,9 +6,12 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Folder {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(updatable = false, nullable = false)
@@ -24,6 +27,18 @@ public class Folder {
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JsonIgnore
     private User user;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "folder", cascade = {CascadeType.ALL},orphanRemoval = true)
+    @JsonIgnore
+    private List<ToDoItem> toDoItems = new ArrayList<>();
+
+    public List<ToDoItem> getToDoItems() {
+        return toDoItems;
+    }
+
+    public void setToDoItems(List<ToDoItem> toDoItems) {
+        this.toDoItems = toDoItems;
+    }
 
     public long getId() {
         return id;

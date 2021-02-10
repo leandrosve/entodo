@@ -1,8 +1,8 @@
 package com.leandrosve.entodo.controller;
 
-import com.leandrosve.entodo.exception.UnauthorizedException;
 import com.leandrosve.entodo.model.Folder;
 import com.leandrosve.entodo.model.User;
+import com.leandrosve.entodo.model.dto.FolderDTO;
 import com.leandrosve.entodo.service.AuthenticationService;
 import com.leandrosve.entodo.service.FolderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +29,18 @@ public class FolderController {
         return new ResponseEntity<>(folders, HttpStatus.OK);
     }
 
-    @PostMapping("/folders")
-    public ResponseEntity<Folder> createFolder(@RequestBody @Valid Folder folder) {
+    @GetMapping("/folders/{folderId}")
+    public ResponseEntity<FolderDTO> getFolder(@PathVariable Long folderId) {
         User user = authenticationService.getCurrentUser();
-        return new ResponseEntity<>(folderService.createFolderForUser(folder, user), HttpStatus.OK);
+        Folder folder = folderService.getFolderByIdAndUser(folderId, user);
+        return new ResponseEntity<>( FolderService.mapFolderToDTO(folder), HttpStatus.OK);
+    }
+
+    @PostMapping("/folders")
+    public ResponseEntity<FolderDTO> createFolder(@RequestBody @Valid Folder folder) {
+        User user = authenticationService.getCurrentUser();
+        Folder res = folderService.createFolderForUser(folder, user);
+        return new ResponseEntity<>(FolderService.mapFolderToDTO(res), HttpStatus.OK);
     }
 
     @DeleteMapping("/folders/{folderId}")
@@ -42,9 +50,10 @@ public class FolderController {
     }
 
     @PatchMapping("/folders/{folderId}")
-    public ResponseEntity<Folder> editFolder(@RequestBody @Valid Folder folderInfo, @PathVariable Long folderId) {
+    public ResponseEntity<FolderDTO> editFolder(@RequestBody @Valid Folder folderInfo, @PathVariable Long folderId) {
         User user = authenticationService.getCurrentUser();
-        return new ResponseEntity<>(folderService.editFolderFromUser(folderId, folderInfo, user), HttpStatus.OK);
+        Folder res = folderService.editFolderFromUser(folderId, folderInfo, user);
+        return new ResponseEntity<>(FolderService.mapFolderToDTO(res), HttpStatus.OK);
     }
 
 }
