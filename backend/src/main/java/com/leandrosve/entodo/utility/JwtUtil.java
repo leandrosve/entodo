@@ -1,5 +1,6 @@
 package com.leandrosve.entodo.utility;
 
+import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +20,8 @@ import io.jsonwebtoken.JwtParser;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+import javax.xml.bind.DatatypeConverter;
 
 @Component
 public class JwtUtil {
@@ -26,9 +29,10 @@ public class JwtUtil {
 
     private SecretKey key;
 
-    public JwtUtil( ){
-        super();
-         this.key = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    @Autowired
+    public JwtUtil(@Value("${authentication.jwt.secretKey}") String secretKey ){
+        byte[] apiKeySecretBytes = secretKey.getBytes();
+        this.key = new SecretKeySpec(apiKeySecretBytes, SignatureAlgorithm.HS256.getJcaName());
     }
 
     // retrieve username from jwt token
