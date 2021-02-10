@@ -43,6 +43,13 @@ public class User implements UserDetails {
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Folder> folders = new ArrayList<>();
 
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<ToDoItem> toDoItems = new ArrayList<>();
+
+    public List<ToDoItem> getToDoItems() {
+        return toDoItems;
+    }
+
     public long getId() {
         return id;
     }
@@ -57,10 +64,6 @@ public class User implements UserDetails {
 
     public List<Folder> getFolders() {
         return folders;
-    }
-
-    public void setFolders(List<Folder> folders) {
-        this.folders = folders;
     }
 
     public String getName() {
