@@ -1,11 +1,10 @@
 package com.leandrosve.entodo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import javax.persistence.*;
-import javax.transaction.Transactional;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -15,7 +14,6 @@ import java.util.List;
 
 @Entity
 public class User implements UserDetails {
-
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,9 +39,12 @@ public class User implements UserDetails {
     private String password;
 
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+
+    @JsonIgnore
     private List<Folder> folders = new ArrayList<>();
 
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<ToDoItem> toDoItems = new ArrayList<>();
 
     public List<ToDoItem> getToDoItems() {
@@ -75,6 +76,7 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
@@ -90,11 +92,13 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isAccountNonLocked() {
         return true;
     }
@@ -104,11 +108,13 @@ public class User implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
     @Override
+    @JsonIgnore
     public boolean isEnabled() {
         return true;
     }

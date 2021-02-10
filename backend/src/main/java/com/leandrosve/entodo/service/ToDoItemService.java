@@ -2,7 +2,6 @@ package com.leandrosve.entodo.service;
 
 import com.leandrosve.entodo.exception.ForbiddenException;
 import com.leandrosve.entodo.exception.NotFoundException;
-import com.leandrosve.entodo.model.Folder;
 import com.leandrosve.entodo.model.ToDoItem;
 import com.leandrosve.entodo.model.ToDoItemState;
 import com.leandrosve.entodo.model.User;

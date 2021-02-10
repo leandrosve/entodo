@@ -1,15 +1,5 @@
 package com.leandrosve.entodo.model.dto;
 
-import com.leandrosve.entodo.model.ToDoItem;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
-
-import com.leandrosve.entodo.model.ToDoItem;
-
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.List;
 
