@@ -9,7 +9,9 @@ import javax.transaction.Transactional;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 public class User implements UserDetails {
@@ -38,6 +40,9 @@ public class User implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<Folder> folders = new ArrayList<>();
+
     public long getId() {
         return id;
     }
@@ -50,6 +55,13 @@ public class User implements UserDetails {
         this.username = username;
     }
 
+    public List<Folder> getFolders() {
+        return folders;
+    }
+
+    public void setFolders(List<Folder> folders) {
+        this.folders = folders;
+    }
 
     public String getName() {
         return name;
