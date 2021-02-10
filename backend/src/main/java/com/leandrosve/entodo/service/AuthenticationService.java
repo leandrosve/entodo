@@ -1,6 +1,6 @@
 package com.leandrosve.entodo.service;
 
-import com.leandrosve.entodo.exception.handler.LoginFailedException;
+import com.leandrosve.entodo.exception.LoginFailedException;
 import com.leandrosve.entodo.model.User;
 import com.leandrosve.entodo.model.dto.AuthenticatedCredentials;
 import com.leandrosve.entodo.repository.UserRepository;

@@ -1,4 +1,4 @@
-package com.leandrosve.entodo.exception.handler;
+package com.leandrosve.entodo.exception;
 
 public class ErrorResponse {
     private Integer status;

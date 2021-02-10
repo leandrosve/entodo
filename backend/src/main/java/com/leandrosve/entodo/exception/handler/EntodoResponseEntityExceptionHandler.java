@@ -1,8 +1,11 @@
 package com.leandrosve.entodo.exception.handler;
 
+import com.leandrosve.entodo.exception.CustomException;
+import com.leandrosve.entodo.exception.ErrorResponse;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -24,6 +27,15 @@ public class EntodoResponseEntityExceptionHandler extends ResponseEntityExceptio
 
         return new ResponseEntity<Object>(exceptionResponse, status);
     }
+
+    @ExceptionHandler({AuthenticationException.class})
+    public ResponseEntity<Object> handleAccessDeniedException(AuthenticationException ex, WebRequest webRequest)
+    { final HttpStatus status= HttpStatus.UNAUTHORIZED;
+        ErrorResponse error = new ErrorResponse(status.value(),ex.getMessage());
+        return new ResponseEntity<>(error, HttpStatus.UNAUTHORIZED);
+    }
+
+
 
     @ExceptionHandler(CustomException.class)
     public final ResponseEntity<Object> handleCustomExceptions(CustomException ex) {
