@@ -7,6 +7,7 @@ import DeleteIcon from "@ant-design/icons/DeleteOutlined";
 import ViewIcon from "@ant-design/icons/EyeOutlined";
 import Folder from "../../types/Folder";
 import Api from "../../api/api";
+import { Link } from "react-router-dom";
 
 interface FolderListItemProps {
   folder: Folder;
@@ -38,10 +39,17 @@ const FolderListItem: FC<FolderListItemProps> = ({
         <Text>{folder.description}</Text>
       </Stack>
       <Stack flexDir={{ md: "row", base: "column" }} align="center">
-        <Button m="5px" colorScheme="brand" leftIcon={<ViewIcon />}>
-          View Items
-        </Button>
-        <Button m="5px" variant="outline" leftIcon={<DeleteIcon />} onClick={removeFolder}>
+        <Link to={`/folders/${folder.id}`}>
+          <Button m="5px" colorScheme="brand" leftIcon={<ViewIcon />}>
+            View Items
+          </Button>
+        </Link>
+        <Button
+          m="5px"
+          variant="outline"
+          leftIcon={<DeleteIcon />}
+          onClick={removeFolder}
+        >
           Remove
         </Button>
       </Stack>

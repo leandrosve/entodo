@@ -1,12 +1,14 @@
 import { Button, Stack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import React, { FC } from "react";
+import React, { FC, useCallback, useState } from "react";
 import * as Yup from "yup";
 import TextField from "../util/TextField";
 import TextIcon from "@ant-design/icons/FileTextOutlined";
 import AddIcon from "@ant-design/icons/PlusOutlined";
+import Api from "../../api/api";
+import ToDoItem from "../../types/ToDoItem";
 
-interface ToDoItemValues {
+interface ToDoItemData {
   title: string;
 }
 
@@ -18,9 +20,20 @@ const validationSchema = Yup.object({
 
 interface Props {
   folderId?: number;
+  handleAddToDoItem:(item?:ToDoItem)=>void;
 }
-const ToDoItemForm: FC<Props> = ({ folderId }) => {
-  const initialValues: ToDoItemValues = { title: "" };
+const ToDoItemForm: FC<Props> = ({ folderId, handleAddToDoItem}) => {
+  const initialValues: ToDoItemData = { title: "" };
+
+  const [error, setError] = useState<string | undefined>();
+
+  const createToDoItem = useCallback((data:ToDoItemData, handleResetForm:()=>void)=>{
+    Api.post<ToDoItem, ToDoItemData>("/todos", data).then(
+      res=>{handleAddToDoItem(res.data);handleResetForm()}
+    ).catch(
+      err=>setError(err.message)
+    )
+  },[])
   return (
     <Formik
       validateOnChange
@@ -28,8 +41,8 @@ const ToDoItemForm: FC<Props> = ({ folderId }) => {
       isInitialValid={false}
       initialValues={initialValues}
       validationSchema={validationSchema}
-      onSubmit={(values: ToDoItemValues) => {
-        alert(JSON.stringify(values));
+      onSubmit={(values: ToDoItemData, {resetForm}) => {
+        createToDoItem(values, resetForm)
       }}
     >
       {(formik) => (

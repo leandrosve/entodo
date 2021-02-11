@@ -1,16 +1,23 @@
-import { List, ListItem } from "@chakra-ui/react";
-import React from "react";
-import ToDoItem from "./ToDoItem";
+import { List, ListItem, Text } from "@chakra-ui/react";
+import React, { FC } from "react";
+import ToDoItem from "../../types/ToDoItem";
+import ToDoItemListItem from "./ToDoItemListItem";
 
-const ToDoList = () => {
+interface ToDoListProps{
+  toDoItems?:ToDoItem[];
+}
+const ToDoList:FC<ToDoListProps>= ({toDoItems=[]}) => {
   return (
+      <>
+      <Text size="xl"></Text>
       <List spacing={3}>
-        {[1, 2, 3, 4].map((i) => (
-          <ListItem key={i}>
-            <ToDoItem />
+        {toDoItems.map((toDoItem) => (
+          <ListItem key={toDoItem.id}>
+            <ToDoItemListItem toDoItem={toDoItem}/>
           </ListItem>
         ))}
       </List>
+      </>
   );
 };
 

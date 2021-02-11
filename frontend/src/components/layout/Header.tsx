@@ -116,7 +116,7 @@ const Header: FunctionComponent<FlexProps> = (props) => {
           alignItems="center"
           flexGrow={1}
         >
-          <MenuItems href="/tasks">Tasks</MenuItems>
+          <MenuItems href="/todos">Tasks</MenuItems>
           <MenuItems href="/folders">Folders</MenuItems>
         </Box>
 

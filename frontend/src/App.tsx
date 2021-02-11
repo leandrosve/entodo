@@ -1,12 +1,11 @@
-import { Container } from "@chakra-ui/react";
-import { useState } from "react";
-import { BrowserRouter, Route, Router, Switch } from "react-router-dom";
+import { Container, Divider } from "@chakra-ui/react";
+import { BrowserRouter, Route} from "react-router-dom";
 import "./App.css";
-import FolderList from "./components/folders/FolderList";
 import Header from "./components/layout/Header";
 import { AuthProvider } from "./components/context/AuthContext";
 import ToDoListModule from "./components/todos/ToDoListModule";
 import Welcome from "./components/user/Welcome";
+import FoldersModule from "./components/folders/FoldersModule";
 
 function App() {
   return (
@@ -16,8 +15,11 @@ function App() {
           <Header />
           <Container maxW="600px">
             <Welcome/>
-            <FolderList />
-            <ToDoListModule />
+            <Divider/>
+            <Route path="/folders" component={FoldersModule}/>
+
+            <Route path="/todos" exact component={ToDoListModule}/>
+            
           </Container>
         </AuthProvider>
       </BrowserRouter>

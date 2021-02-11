@@ -8,8 +8,12 @@ import {
 import React, { FC } from "react";
 
 import EditIcon from "@ant-design/icons/EditOutlined";
+import ToDoItem from "../../types/ToDoItem";
 
-interface Props {}
+interface ToDoItemListItemProps {
+  toDoItem:ToDoItem;
+}
+
 interface CustomCheckboxProps extends CheckboxProps {
   isLoading?: boolean;
 }
@@ -19,7 +23,7 @@ const CustomCheckbox: FC<CustomCheckboxProps> = ({
   ...props
 }) => isLoading ? <Button isDisabled isLoading /> : <Checkbox {...props} />
 
-const ToDoItem: FC<Props> = () => {
+const ToDoItemListItem: FC<ToDoItemListItemProps> = ({toDoItem}) => {
   return (
     <Stack
       m="5px"
@@ -46,4 +50,4 @@ const ToDoItem: FC<Props> = () => {
   );
 };
 
-export default ToDoItem;
+export default ToDoItemListItem;

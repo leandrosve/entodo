@@ -2,17 +2,9 @@ import { Divider, Flex, Heading, List, Text } from "@chakra-ui/react";
 import React, { useCallback, useEffect, useState } from "react";
 import Api from "../../api/api";
 import Folder from "../../types/Folder";
-import ToDoItemForm from "../todos/ToDoItemForm";
 import Alert from "../util/Alert";
-import FolderDetail from "./FolderDetail";
 import FolderForm from "./FolderForm";
 import FolderListItem from "./FolderListItem";
-
-const folder = {
-  id: 1,
-  title: "este es un titulo",
-  description: "esta es una descripcion",
-};
 
 const FolderList = () => {
   const [folders, setFolders] = useState<Folder[]>([]);
@@ -80,12 +72,7 @@ const FolderList = () => {
         ))}
       </List>
       <Divider />
-
       <FolderForm handleAddFolder={handleAddFolder} />
-      <Divider />
-      <FolderDetail {...folder} toDoItems={[]} />
-
-      <ToDoItemForm folderId={folder.id} />
     </Flex>
   );
 };
