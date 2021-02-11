@@ -10,6 +10,7 @@ import ToDoItem from "../../types/ToDoItem";
 
 interface ToDoItemData {
   title: string;
+  folderId?:number;
 }
 
 const validationSchema = Yup.object({
@@ -20,7 +21,7 @@ const validationSchema = Yup.object({
 
 interface Props {
   folderId?: number;
-  handleAddToDoItem:(item?:ToDoItem)=>void;
+  handleAddToDoItem:(item:ToDoItem)=>void;
 }
 const ToDoItemForm: FC<Props> = ({ folderId, handleAddToDoItem}) => {
   const initialValues: ToDoItemData = { title: "" };
@@ -28,12 +29,12 @@ const ToDoItemForm: FC<Props> = ({ folderId, handleAddToDoItem}) => {
   const [error, setError] = useState<string | undefined>();
 
   const createToDoItem = useCallback((data:ToDoItemData, handleResetForm:()=>void)=>{
-    Api.post<ToDoItem, ToDoItemData>("/todos", data).then(
+    Api.post<ToDoItem, ToDoItemData>("/todos", {...data, folderId}).then(
       res=>{handleAddToDoItem(res.data);handleResetForm()}
     ).catch(
       err=>setError(err.message)
     )
-  },[])
+  },[folderId])
   return (
     <Formik
       validateOnChange

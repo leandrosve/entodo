@@ -11,7 +11,7 @@ const FoldersModule = () => {
         <FolderList />
       </Route>
       <Route path={`${match.path}/:folderId`}>
-        <FolderDetail />
+        <FolderDetail/>
       </Route>
     </Switch>
   );

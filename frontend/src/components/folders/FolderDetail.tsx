@@ -1,4 +1,4 @@
-import { Button, Heading, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, Heading, Stack, Text } from "@chakra-ui/react";
 import React, { FC, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import GoBackIcon from "@ant-design/icons/ArrowLeftOutlined";
@@ -23,7 +23,9 @@ const FolderDetail: FC = () => {
           <Text size="lg" w="100%" align="left">
             ⚫ {folder.description || "No description"}
           </Text>
-          <ToDoListModule folderId={folder.id} />
+          <Box padding="5px" borderLeft="5px solid black"  borderBottom="5px solid black">
+          <ToDoListModule folderId={folder.id} title="Tasks"/>
+          </Box>
           <Link to="/folders">
             <Button leftIcon={<GoBackIcon />}>Return to list</Button>
           </Link>

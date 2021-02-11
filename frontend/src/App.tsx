@@ -18,7 +18,7 @@ function App() {
             <Divider/>
             <Route path="/folders" component={FoldersModule}/>
 
-            <Route path="/todos" exact component={ToDoListModule}/>
+            <Route path="/todos" exact><ToDoListModule title="Task with no folder"/></Route>
             
           </Container>
         </AuthProvider>
