@@ -1,23 +1,20 @@
-import {
-  Button,
-  Container,
-  Heading,
-  Stack,
-} from "@chakra-ui/react";
+import { Button, Container, Heading, Stack } from "@chakra-ui/react";
 import UserIcon from "@ant-design/icons/UserOutlined";
 import KeyIcon from "@ant-design/icons/KeyOutlined";
 import SmileIcon from "@ant-design/icons/SmileOutlined";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
 import TextField from "../util/TextField";
 import Alert from "../util/Alert";
+import Api from "../../api/api";
+import { useHistory } from "react-router-dom";
 
-interface SignupValues {
+interface SignupData {
   username: string;
-  name:string;
+  name: string;
   password: string;
-  passwordConfirmation: string;
+  passwordConfirmation?: string;
 }
 
 const validationSchema = Yup.object({
@@ -25,21 +22,17 @@ const validationSchema = Yup.object({
     .max(256, "Username is too long.")
     .min(3, "Username is too short.")
     .required("This field is required"),
-    name: Yup.string()
-    .required("This field is required"),
+  name: Yup.string().required("This field is required"),
   password: Yup.string()
     .required("This field is required")
-    .matches(
-      /^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/,
-      "Password is too weak."
-    )
+    .matches(/^(?=.*\d)(?=.*[a-zA-Z]).{8,}$/, "Password is too weak.")
     .max(256, "Password is too long"),
   passwordConfirmation: Yup.string()
     .required("This field is required")
     .oneOf([Yup.ref("password"), null], "Passwords don't match"),
 });
 
-const initialValues: SignupValues = {
+const initialValues: SignupData = {
   username: "",
   name: "",
   password: "",
@@ -50,14 +43,18 @@ const SignupForm = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState<string>();
-
-  const handleSubmit = () => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setError("Email is already taken.");
-    }, 5000);
-  };
+  const history = useHistory();
+  const handleSubmit = useCallback(
+    (signupData: SignupData) => {
+      const { passwordConfirmation, ...data }: SignupData = signupData;
+      setIsLoading(true);
+      Api.post<undefined, SignupData>("/signup", data)
+        .then(() => history.replace("/login?signup_success=true"))
+        .catch((err) => setError(err.message))
+        .finally(() => setIsLoading(false));
+    },
+    [setError]
+  );
 
   const handleCloseAlert = () => setError(undefined);
 
@@ -68,9 +65,7 @@ const SignupForm = () => {
       </Heading>
       {error && (
         <Alert status="error" handleClose={handleCloseAlert}>
-         
           {error}
-        
         </Alert>
       )}
       <Formik
@@ -85,13 +80,14 @@ const SignupForm = () => {
           <Form>
             <Stack spacing={4} mt="4">
               <TextField
-                inputLeftElement={<UserIcon/>}
+                inputLeftElement={<UserIcon />}
                 name="username"
                 type="text"
+                autoFocus
                 placeholder="Username"
               />
               <TextField
-                inputLeftElement={<SmileIcon/>}
+                inputLeftElement={<SmileIcon />}
                 name="name"
                 type="text"
                 placeholder="Name"

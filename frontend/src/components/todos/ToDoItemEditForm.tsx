@@ -46,7 +46,7 @@ const ToDoItemEditForm: FC<ToDoItemEditFormProps> = ({
   return (
     <Flex flexDir="column">
       <Heading as="h3" size="lg" mb="10px">
-        Editing Task <i>"Task name</i>"
+        Editing Task "<i>{toDoItem.title}</i>"
       </Heading>
       {error && (
         <Alert status="error" handleClose={() => setError(undefined)}>

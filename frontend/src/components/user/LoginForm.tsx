@@ -1,15 +1,16 @@
 import { Button, Container, Heading, Stack } from "@chakra-ui/react";
 import UserIcon from "@ant-design/icons/UserOutlined";
 import KeyIcon from "@ant-design/icons/KeyOutlined";
-import React, { useCallback, useContext, useState } from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import TextField from "../util/TextField";
-import axios from "axios";
+import useQuery from "../hooks/useQuery";
 import Api from "../../api/api";
 import Alert from "../util/Alert";
 import AuthContext from "../context/AuthContext";
 import AuthInfo from "../../types/AuthInfo";
+
 
 interface LoginData {
   username: string;
@@ -24,7 +25,8 @@ const validationSchema = Yup.object({
 const LoginForm = () => {
   const initialValues: LoginData = { username: "", password: "" };
 
-  const [error, setError] = useState<string | undefined>("");
+  const [error, setError] = useState<string | undefined>();
+  const [success, setSuccess] = useState<string | undefined>();
 
   const { setAuth } = useContext(AuthContext);
 
@@ -37,6 +39,17 @@ const LoginForm = () => {
     [setError, setAuth]
   );
 
+ 
+  const query = useQuery();
+  
+  
+  useEffect(()=>{
+    if(query.get("signup_success")){
+      setSuccess("Account succesfully created, please log in!")
+
+    }
+  }, [setSuccess, query])
+
   return (
     <Container>
       <Heading textAlign="center" as="h2" size="lg">
@@ -45,6 +58,11 @@ const LoginForm = () => {
       {error && (
         <Alert status="error" handleClose={() => setError(undefined)}>
           {error}
+        </Alert>
+      )}
+      {success && (
+        <Alert status="success">
+          {success}
         </Alert>
       )}
       <Formik

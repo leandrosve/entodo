@@ -14,7 +14,7 @@ const FolderDetail: FC = () => {
     Api.get<Folder>(`/folders/${folderId}`).then((res) => setFolder(res.data));
   }, [setFolder, folderId]);
   return (
-    <Stack align="center">
+    <Stack align="center"     margin="auto" overflow="hidden" overflowY="scroll">
       {!!folder ? (
         <>
           <Heading textAlign="left" width="100%">

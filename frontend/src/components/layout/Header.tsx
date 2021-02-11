@@ -15,7 +15,7 @@ import UserAddIcon from "@ant-design/icons/UserAddOutlined";
 import MenuOutlined from "@ant-design/icons/MenuOutlined";
 import CloseOutlined from "@ant-design/icons/CloseOutlined";
 import Modal from "./Modal";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import LoginForm from "../user/LoginForm";
 import SignupForm from "../user/SignupForm";
 import AuthContext from "../context/AuthContext";
@@ -50,33 +50,13 @@ const Brand = () => (
 );
 
 const Header: FunctionComponent<FlexProps> = (props) => {
-
-  const {isAuthenticated, logout} = useContext(AuthContext);
+  const { isAuthenticated, logout } = useContext(AuthContext);
   const [isDrawerOpen, setIsDrawerOpen] = React.useState<boolean>(false);
 
   const handleToggleDrawer = () => setIsDrawerOpen((prev) => !prev);
 
-  const [isModalOpen, setIsModalOpen] = React.useState<boolean>(false);
-
-  const [modalContentType, setModalContentType] = React.useState<
-    "login" | "signup"
-  >("login");
-
-  const handleOpenModal = (type: "login" | "signup") => {
-    setModalContentType(type);
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
   return (
-    <>{!isAuthenticated &&
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
-        {modalContentType === "login" && <LoginForm />}
-        {modalContentType === "signup" && <SignupForm/>}
-      </Modal>}
+    <>    
       <Flex
         as="nav"
         align="center"
@@ -108,7 +88,7 @@ const Header: FunctionComponent<FlexProps> = (props) => {
             icon={<CloseOutlined />}
           />
         </Box>
-        <Box
+        {isAuthenticated && <Box
           display={{ base: isDrawerOpen ? "flex" : "none", md: "flex" }}
           width={{ base: "full", md: "auto" }}
           justifyContent={{ base: "center", md: "start" }}
@@ -118,45 +98,43 @@ const Header: FunctionComponent<FlexProps> = (props) => {
         >
           <MenuItems href="/todos">Tasks</MenuItems>
           <MenuItems href="/folders">Folders</MenuItems>
-        </Box>
+        </Box>}
 
         <Box
           display={{ base: isDrawerOpen ? "block" : "none", md: "block" }}
-          mt={{ base: 4, md: 0 }}    
-          width={{ base: "full", md: "auto" }}     
+          mt={{ base: 4, md: 0 }}
+          width={{ base: "full", md: "auto" }}
         >
           <Stack
             direction={isDrawerOpen ? "column" : "row"}
             spacing={4}
-           
             align="center"
           >
-            {!isAuthenticated ?
-            <>
-              <Button
-              colorScheme="brand"
-              variant="ghost"
-              border="1px"
-              onClick={() => handleOpenModal("signup")}
-              leftIcon={<UserAddIcon/>}
-            >
-              Create account
-            </Button>
-            <Button
-              colorScheme="brand"
-              onClick={() => handleOpenModal("login")}
-            >
-              Log in
-            </Button>
-            </>
-            :<Button
-            variant="ghost"
-            onClick={logout}
-          >
-            Log out
-          </Button>
-            }
-            
+            {!isAuthenticated ? (
+              <>
+                <Link to="/signup">
+                  <Button
+                    colorScheme="brand"
+                    variant="ghost"
+                    border="1px"
+                    leftIcon={<UserAddIcon />}
+                  >
+                    Create account
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button
+                    colorScheme="brand"
+                  >
+                    Log in
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <Button variant="ghost" onClick={logout}>
+                Log out
+              </Button>
+            )}
           </Stack>
         </Box>
       </Flex>

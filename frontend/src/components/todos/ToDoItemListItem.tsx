@@ -69,6 +69,7 @@ const ToDoItemListItem: FC<ToDoItemListItemProps> = ({
         w={{ md: "auto", base: "100%" }}
         onClick={()=>handleOpenEditForm(toDoItem)}
         leftIcon={<EditIcon />}
+        colorScheme="purple"
       >
         Edit
       </Button>

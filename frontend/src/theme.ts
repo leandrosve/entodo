@@ -19,8 +19,15 @@ const breakpoints = createBreakpoints({
   sm : "30em", md : "40em", lg : "62em", xl : "80em"
 })
 
+const fonts={
+  body: 'Montserrat, sans-serif',
+  heading: 'Montserrat, sans-serif',
+  mono: 'Montserrat, sans-serif',
+}
+
 const theme = extendTheme({
   breakpoints, 
+  fonts,
   colors: {
     brand,
   },

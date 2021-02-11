@@ -7,7 +7,7 @@ const Welcome = () => {
   return (
     <Stack justifyContent="center">
       <Image  m="auto" src="/brand.png" boxSize="100px" objectFit="cover" alt="Entodo" /> 
-      <Heading>
+      <Heading textAlign="center">
         {isAuthenticated
           ? `Welcome, ${auth.user.name}`
           : "Welcome, please log in to start using this app!"}

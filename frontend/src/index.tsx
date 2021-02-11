@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import { ChakraProvider } from "@chakra-ui/react";
 import theme from "./theme";
+import { AuthProvider } from "./components/context/AuthContext";
 
 
 ReactDOM.render(
   <React.StrictMode>
     <ChakraProvider theme={theme}>
+    <AuthProvider>
       <App/>
+      </AuthProvider>
     </ChakraProvider>
   </React.StrictMode>,
   document.getElementById("root")
