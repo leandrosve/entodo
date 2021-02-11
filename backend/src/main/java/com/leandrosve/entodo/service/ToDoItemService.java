@@ -2,6 +2,7 @@ package com.leandrosve.entodo.service;
 
 import com.leandrosve.entodo.exception.ForbiddenException;
 import com.leandrosve.entodo.exception.NotFoundException;
+import com.leandrosve.entodo.model.Folder;
 import com.leandrosve.entodo.model.ToDoItem;
 import com.leandrosve.entodo.model.ToDoItemState;
 import com.leandrosve.entodo.model.User;
@@ -26,6 +27,15 @@ public class ToDoItemService {
         return user.getToDoItems();
     }
 
+    public List<ToDoItem> getUnfoldedToDoItemsFromUser(User user){
+        return toDoItemRepository.findAllUnfoldedFromUser(user);
+    }
+
+    public List<ToDoItem> getToDoItemsFromFolderAndUser(Long folderId, User user){
+        Folder folder = folderService.getFolderByIdAndUser(folderId, user);
+        return folder.getToDoItems();
+    }
+
     public ToDoItem createToDoItemForUser(ToDoItemDTO toDoItemInfo, User user){
         ToDoItem toDoItem = new ToDoItem(toDoItemInfo.getTitle(), user,null );
         toDoItem.setState(ToDoItemState.ACT);
@@ -40,6 +50,13 @@ public class ToDoItemService {
         return toDoItem;
 
     }
+
+    public ToDoItem deleteToDoItemByIdAndUser(Long toDoItemId, User user){
+        ToDoItem toDoItem = getToDoItemByIdAndUser(toDoItemId, user);
+        toDoItemRepository.delete(toDoItem);
+        return toDoItem;
+    }
+
     public ToDoItem editToDoItemFromUser(Long folderId, ToDoItemDTO toDoItemInfo, User user){
         ToDoItem toDoItem = getToDoItemByIdAndUser(folderId, user);
         toDoItem.setTitle(toDoItemInfo.getTitle());

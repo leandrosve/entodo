@@ -15,11 +15,10 @@ public class FolderDTO implements Serializable {
         super();
     }
 
-    public FolderDTO(Long id, String title, String description, List<ToDoItemDTO> toDoItems) {
+    public FolderDTO(Long id, String title, String description) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.toDoItems = toDoItems;
     }
 
     public Long getId() {
@@ -45,15 +44,5 @@ public class FolderDTO implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public List<ToDoItemDTO> getToDoItems() {
-        return toDoItems;
-    }
-
-    public void setToDoItems(List<ToDoItemDTO> toDoItems) {
-        this.toDoItems = toDoItems;
-    }
-
-    private List<ToDoItemDTO> toDoItems;
 
 }

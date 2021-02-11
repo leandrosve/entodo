@@ -1,9 +1,12 @@
 package com.leandrosve.entodo.controller;
 
+import com.leandrosve.entodo.model.Folder;
 import com.leandrosve.entodo.model.ToDoItem;
 import com.leandrosve.entodo.model.User;
+import com.leandrosve.entodo.model.dto.FolderDTO;
 import com.leandrosve.entodo.model.dto.ToDoItemDTO;
 import com.leandrosve.entodo.service.AuthenticationService;
+import com.leandrosve.entodo.service.FolderService;
 import com.leandrosve.entodo.service.ToDoItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,12 +34,33 @@ public class ToDoItemController {
         return new ResponseEntity<>(new ToDoItemDTO((toDoItem)), HttpStatus.OK);
     }
 
+    @DeleteMapping("/todos/{toDoItemId}")
+    public ResponseEntity<ToDoItemDTO> deleteToDoItem(@PathVariable Long toDoItemId) {
+        User user = authenticationService.getCurrentUser();
+        ToDoItem toDoItem = toDoItemService.deleteToDoItemByIdAndUser(toDoItemId, user);
+        return new ResponseEntity<>(new ToDoItemDTO((toDoItem)), HttpStatus.OK);
+    }
+
     @GetMapping("/todos")
     public ResponseEntity<List<ToDoItemDTO>> getToDoItems() {
         User user = authenticationService.getCurrentUser();
         List<ToDoItem> toDoItems = toDoItemService.getToDoItemsFromUser(user);
         List<ToDoItemDTO> toDoItemDTOS = mapToDoItemsToDTOS(toDoItems);
         return new ResponseEntity<>(toDoItemDTOS, HttpStatus.OK);
+    }
+
+    @GetMapping("/todos/unfolded")
+    public ResponseEntity<List<ToDoItemDTO>> getToDoItemsWithNoFolder() {
+        User user = authenticationService.getCurrentUser();
+        List<ToDoItem> toDoItems = toDoItemService.getUnfoldedToDoItemsFromUser(user);
+        return new ResponseEntity<>(mapToDoItemsToDTOS(toDoItems), HttpStatus.OK);
+    }
+
+    @GetMapping("/folders/{folderId}/todos")
+    public ResponseEntity<List<ToDoItemDTO>> getToDoItemsFromFolder(@PathVariable Long folderId) {
+        User user = authenticationService.getCurrentUser();
+        List<ToDoItem> res = toDoItemService.getToDoItemsFromFolderAndUser(folderId, user);
+        return new ResponseEntity<>(mapToDoItemsToDTOS(res), HttpStatus.OK);
     }
 
     @PostMapping("/todos")

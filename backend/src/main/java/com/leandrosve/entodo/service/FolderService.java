@@ -47,7 +47,7 @@ public class FolderService {
     }
 
     public static FolderDTO mapFolderToDTO(Folder folder){
-        List<ToDoItemDTO> toDoItemDTOS = ToDoItemService.mapToDoItemsToDTOS(folder.getToDoItems());
-        return new FolderDTO(folder.getId(), folder.getTitle(), folder.getDescription(), toDoItemDTOS);
+        //List<ToDoItemDTO> toDoItemDTOS = ToDoItemService.mapToDoItemsToDTOS(folder.getToDoItems());
+        return new FolderDTO(folder.getId(), folder.getTitle(), folder.getDescription());
     }
 }
