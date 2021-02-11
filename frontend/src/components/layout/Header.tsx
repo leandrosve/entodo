@@ -9,7 +9,7 @@ import {
   Image,
   Stack,
 } from "@chakra-ui/react";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useContext } from "react";
 
 import UserAddIcon from "@ant-design/icons/UserAddOutlined";
 import MenuOutlined from "@ant-design/icons/MenuOutlined";
@@ -18,6 +18,7 @@ import Modal from "./Modal";
 import {Link} from "react-router-dom";
 import LoginForm from "../user/LoginForm";
 import SignupForm from "../user/SignupForm";
+import AuthContext from "../context/AuthContext";
 
 interface MenuItemProps {
   children: React.ReactNode;
@@ -49,6 +50,8 @@ const Brand = () => (
 );
 
 const Header: FunctionComponent<FlexProps> = (props) => {
+
+  const {isAuthenticated, logout} = useContext(AuthContext);
   const [isDrawerOpen, setIsDrawerOpen] = React.useState<boolean>(false);
 
   const handleToggleDrawer = () => setIsDrawerOpen((prev) => !prev);
@@ -69,11 +72,11 @@ const Header: FunctionComponent<FlexProps> = (props) => {
   };
 
   return (
-    <>
+    <>{!isAuthenticated &&
       <Modal isOpen={isModalOpen} onClose={handleCloseModal}>
         {modalContentType === "login" && <LoginForm />}
         {modalContentType === "signup" && <SignupForm/>}
-      </Modal>
+      </Modal>}
       <Flex
         as="nav"
         align="center"
@@ -128,7 +131,9 @@ const Header: FunctionComponent<FlexProps> = (props) => {
            
             align="center"
           >
-            <Button
+            {!isAuthenticated ?
+            <>
+              <Button
               colorScheme="brand"
               variant="ghost"
               border="1px"
@@ -139,11 +144,19 @@ const Header: FunctionComponent<FlexProps> = (props) => {
             </Button>
             <Button
               colorScheme="brand"
-              border="1px"
               onClick={() => handleOpenModal("login")}
             >
               Log in
             </Button>
+            </>
+            :<Button
+            variant="ghost"
+            onClick={logout}
+          >
+            Log out
+          </Button>
+            }
+            
           </Stack>
         </Box>
       </Flex>

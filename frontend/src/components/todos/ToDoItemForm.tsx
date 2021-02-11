@@ -1,6 +1,6 @@
 import { Button, Stack } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
-import React from "react";
+import React, { FC } from "react";
 import * as Yup from "yup";
 import TextField from "../util/TextField";
 import TextIcon from "@ant-design/icons/FileTextOutlined";
@@ -11,26 +11,30 @@ interface ToDoItemValues {
 }
 
 const validationSchema = Yup.object({
-  title: Yup.string().required("Title is required").max(256, "Title is too long"),
+  title: Yup.string()
+    .required("Title is required")
+    .max(256, "Title is too long"),
 });
 
-const ToDoItemForm = () => {
+interface Props {
+  folderId?: number;
+}
+const ToDoItemForm: FC<Props> = ({ folderId }) => {
   const initialValues: ToDoItemValues = { title: "" };
   return (
-   
-      <Formik
-        validateOnChange
-        validateOnMount
-        isInitialValid={false}
-        initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={(values: ToDoItemValues) => {
-          alert(JSON.stringify(values));
-        }}
-      >
-        {(formik) => (
-          <Form>
-               <Stack isInline mt="10px">
+    <Formik
+      validateOnChange
+      validateOnMount
+      isInitialValid={false}
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={(values: ToDoItemValues) => {
+        alert(JSON.stringify(values));
+      }}
+    >
+      {(formik) => (
+        <Form>
+          <Stack isInline mt="10px">
             <TextField
               inputLeftElement={<TextIcon />}
               name="title"
@@ -38,11 +42,17 @@ const ToDoItemForm = () => {
               placeholder="New task"
             />
 
-            <Button type="submit" isDisabled={!formik.isValid} leftIcon={<AddIcon/>}>Add</Button>
-            </Stack>
-          </Form>
-        )}
-      </Formik>
+            <Button
+              type="submit"
+              isDisabled={!formik.isValid}
+              leftIcon={<AddIcon />}
+            >
+              Add
+            </Button>
+          </Stack>
+        </Form>
+      )}
+    </Formik>
   );
 };
 
