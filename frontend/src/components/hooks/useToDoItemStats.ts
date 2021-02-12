@@ -1,15 +1,13 @@
-import React, { useEffect, useState } from 'react'
-import ToDoItem from '../../types/ToDoItem'
+import React, { useEffect, useState } from "react";
+import ToDoItem from "../../types/ToDoItem";
 
-const useToDoItemStats = (items:ToDoItem[]) => {
-    const [stats, setStats] = useState({completed:0, active:0})
-   
-    useEffect(()=>{
-        const completed = items.reduce((com, item) => item.state =='COM' ? com + 1 : com, 0 );
-        setStats({completed, active:items.length - completed})
-    },items)
+const useToDoItemStats = (items: ToDoItem[]) => {
 
-    return stats;
-}
+  const completed = items.reduce(
+    (com, item) => (item.state == "COM" ? com + 1 : com),
+    0
+  );
+  return { completed, active: items.length - completed };
+};
 
 export default useToDoItemStats;

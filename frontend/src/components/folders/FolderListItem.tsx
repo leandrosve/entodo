@@ -32,15 +32,20 @@ const FolderListItem: FC<FolderListItemProps> = ({
       align="center"
       justifyContent="space-between"
     >
-        <Stack
-      flexDir={{ md: "row", base: "column" }}>
-      <FolderIcon style={{ fontSize: "75px", color}}  />
-      <Stack spacing={0}>
-        <Heading as="h4" size="md" maxW="400px" wordBreak="break-all" noOfLines={3}>
-          {folder.title} 
-        </Heading>
-        <Text>{folder.description}</Text>
-      </Stack>
+      <Stack flexDir={{ md: "row", base: "column" }}>
+        <FolderIcon style={{ fontSize: "75px", color }} />
+        <Stack spacing={0}>
+          <Heading
+            as="h4"
+            size="md"
+            maxW="400px"
+            wordBreak="break-all"
+            noOfLines={3}
+          >
+            {folder.title}
+          </Heading>
+          <Text>{folder.description}</Text>
+        </Stack>
       </Stack>
       <Stack flexDir={{ md: "row", base: "column" }} align="center">
         <Link to={`/folders/${folder.id}`}>

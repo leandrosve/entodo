@@ -1,0 +1,43 @@
+version: '3.7'
+
+services:
+  app-server:
+    build:
+      context: backend 
+      dockerfile: Dockerfile
+    ports:
+      - "8088:8080" 
+    depends_on: 
+      - db 
+    networks: 
+      - backend
+
+  app-client:
+    build:
+      context: frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3033:3030" 
+    depends_on:
+      - app-server
+
+  # Database service
+  db:
+    image: mysql:5.7
+    ports:
+      - "3307:3306"
+    environment:
+      MYSQL_DATABASE: entodo
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - entodo-db-data:/var/lib/mysql
+    networks: 
+      - backend
+     
+networks:
+  backend:
+    
+# Volumes
+volumes:
+  entodo-db-data:
