@@ -16,4 +16,4 @@ COPY src src
 
 EXPOSE 8080
 
-ENTRYPOINT ["./mvnw", "spring-boot:run"]
+ENTRYPOINT ["bash","mvnw", "spring-boot:run"]
