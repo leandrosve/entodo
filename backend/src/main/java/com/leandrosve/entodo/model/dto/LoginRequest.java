@@ -6,13 +6,13 @@ import javax.validation.constraints.Size;
 public class LoginRequest {
 
     @NotBlank
-    @Size(min=3, message="{username.short}")
-    @Size(max=256, message="{username.tooLong}")
+    @Size(min=3, message="Invalid username.")
+    @Size(max=256, message="Invalid username.")
     private String username;
 
     @NotBlank
-    @Size(min=3, message="{password.short}")
-    @Size(max=256, message="{password.tooLong}")
+    @Size(min=3, message="Invalid credentials.")
+    @Size(max=256, message="Invalid credentials.")
     private String password;
 
     public LoginRequest(String username, String password) {

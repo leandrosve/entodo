@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 public class UnauthorizedException extends CustomException{
     @Override
     public String getMessage() {
-        return "{unauthorized}";
+        return "You don't have the required authorities.";
     }
 
     @Override

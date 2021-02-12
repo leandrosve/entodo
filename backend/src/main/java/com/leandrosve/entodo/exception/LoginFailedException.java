@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 public class LoginFailedException extends CustomException{
     @Override
     public String getMessage() {
-        return "{login.failed}";
+        return "Username and password do not match.";
     }
 
     @Override

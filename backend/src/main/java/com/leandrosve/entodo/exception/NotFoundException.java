@@ -17,7 +17,7 @@ public class NotFoundException extends CustomException {
     @Override
     public String getMessage() {
         if(message == null)
-            return "{notFound}";
+            return "Couldn't find the requested resource.";
         return message;
     }
 

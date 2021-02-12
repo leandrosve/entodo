@@ -12,8 +12,8 @@ public class ToDoItem {
     @Column(updatable = false, nullable = false)
     private long id;
 
-    @Size(max = 256, message = "{title.tooLong}")
-    @NotBlank(message = "{title.required}")
+    @Size(max = 256, message = "The title is too long.")
+    @NotBlank(message = "The title can not be empty.")
     private String title;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -32,7 +32,7 @@ public class ToDoItem {
     @JsonIgnore
     private Folder folder;
 
-    public ToDoItem(@Size(max = 256, message = "{title.tooLong}") @NotBlank(message = "{title.required}") String title, User user, Folder folder) {
+    public ToDoItem(String title, User user, Folder folder) {
         this.title = title;
         this.user = user;
         this.folder = folder;

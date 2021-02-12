@@ -45,7 +45,7 @@ public class ToDoItemService {
     }
 
     public ToDoItem getToDoItemByIdAndUser(Long toDoItemId, User user){
-        ToDoItem toDoItem =  toDoItemRepository.findById(toDoItemId).orElseThrow(()->new NotFoundException("{toDoItem.notFound}"));
+        ToDoItem toDoItem =  toDoItemRepository.findById(toDoItemId).orElseThrow(()->new NotFoundException("The task was not found in the system."));
         if(!toDoItem.getUser().equals(user)) throw new ForbiddenException();
         return toDoItem;
 

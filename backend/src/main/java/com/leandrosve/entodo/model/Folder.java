@@ -15,11 +15,11 @@ public class Folder {
     @Column(updatable = false, nullable = false)
     private long id;
 
-    @Size(max = 256, message = "{title.tooLong}")
-    @NotBlank(message = "{title.required}")
+    @Size(max = 256, message = "The title is too long.")
+    @NotBlank(message = "The title can not be empty.")
     private String title;
 
-    @Size(max = 256, message = "{desription.tooLong}")
+    @Size(max = 256, message = "The description is too long.")
     private String description;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)

@@ -41,7 +41,7 @@ public class FolderService {
     }
 
     public Folder getFolderByIdAndUser(Long folderId, User user) throws NotFoundException, ForbiddenException{
-        Folder folder =  folderRepository.findById(folderId).orElseThrow(()->new NotFoundException("{folder.notFound}"));
+        Folder folder =  folderRepository.findById(folderId).orElseThrow(()->new NotFoundException("The folder was not found in the system."));
         if(!folder.getUser().equals(user)) throw new ForbiddenException();
         return folder;
     }

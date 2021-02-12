@@ -37,7 +37,7 @@ public class AuthenticationFilter extends OncePerRequestFilter {
             authenticateRequest(request);
             filterChain.doFilter(request, response);
         }catch(Exception e){
-            ErrorResponse error=new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), "{unauthorized}");
+            ErrorResponse error=new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), "Unauthorized");
             response.setStatus(error.getStatus());
             response.setContentType("application/json");
             ObjectMapper mapper = new ObjectMapper();

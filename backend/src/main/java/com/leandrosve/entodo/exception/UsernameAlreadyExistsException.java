@@ -6,7 +6,7 @@ public class UsernameAlreadyExistsException extends CustomException {
 
     @Override
     public String getMessage() {
-        return "{username.alreadyExists}";
+        return "Username is already taken";
     }
 
     @Override

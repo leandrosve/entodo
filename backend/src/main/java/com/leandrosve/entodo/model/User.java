@@ -21,20 +21,20 @@ public class User implements UserDetails {
     private long id;
 
     @NotBlank
-    @Size(min=3, message="{username.short}")
+    @Size(min=3, message="The given username is too short.")
 
-    @Size(max=256, message="{username.tooLong}")
-    @Pattern(regexp = "^\\S+$", message="{username.noSpaces}")
+    @Size(max=256, message="The given username is too long.")
+    @Pattern(regexp = "^\\S+$", message="The username can not have spaces.")
     @Column(unique = true)
     private String username;
 
-    @NotBlank(message="{name.notEmpty}")
-    @Size(max=256, message="{name.tooLong}")
+    @NotBlank(message="Your name is required.")
+    @Size(max=256, message="Your name is way too long.")
     private String name;
 
-    @NotBlank(message="{password.insecure}")
-    @Size(min=3, message="{password.insecure}")
-    @Pattern(regexp ="^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$", message="{password.insecure}")
+    @NotBlank(message="The password is required.")
+    @Size(min=3, message="The given password is too short.")
+    @Pattern(regexp ="^(?=.*\\d)(?=.*[a-z])(?=.*[a-zA-Z]).{8,}$", message="The given password is too insecure.")
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 

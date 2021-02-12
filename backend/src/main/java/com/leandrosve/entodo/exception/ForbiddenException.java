@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 public class ForbiddenException extends CustomException{
     @Override
     public String getMessage() {
-        return "{forbidden}";
+        return "The requested resource does not belong to you.";
     }
 
     @Override

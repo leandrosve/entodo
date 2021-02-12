@@ -8,8 +8,8 @@ import java.io.Serializable;
 
 public class ToDoItemDTO implements Serializable {
     private Long id;
-    @Size(max = 256, message = "{title.tooLong}")
-    @NotBlank(message = "{title.required}")
+    @Size(max = 256, message = "The given title is too long.")
+    @NotBlank(message = "The title is required.")
     private String title;
 
     private String state;

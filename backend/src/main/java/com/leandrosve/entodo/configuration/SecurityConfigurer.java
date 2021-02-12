@@ -70,7 +70,7 @@ public class SecurityConfigurer extends WebSecurityConfigurerAdapter {
         public void commence(HttpServletRequest request, HttpServletResponse response,
                              AuthenticationException
                                      authException) throws IOException, ServletException {
-            ErrorResponse error = new ErrorResponse(HttpStatus.FORBIDDEN.value(), "{forbidden}");
+            ErrorResponse error = new ErrorResponse(HttpStatus.FORBIDDEN.value(), "The resource does not belong to you");
             response.setStatus(HttpStatus.FORBIDDEN.value());
             response.setContentType(MediaType.APPLICATION_JSON_VALUE);
             response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
