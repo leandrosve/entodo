@@ -26,7 +26,7 @@ La aplicación utiliza los puertos 3033 y 8088 para el frontend y el backend res
 #####  Construir e iniciar containers
 Una vez instalado Docker Compose, debería ser suficiente con ejecutar el siguiente comando para levantar la aplicación.
 
-`docker-compose build && docker-compose up -d`
+`docker-compose build && docker-compose up`
 
 El archivo [run.sh](https://github.com/leandrosve/entodo/blob/develop/run.sh "run.sh") solo se encarga de ejecutar la secuencia de comandos anterior.
 
