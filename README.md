@@ -1,6 +1,7 @@
 # Entodo
 
 ## Características
+
 ### Frontend
 - Lenguaje: Typescript 4.1.4
 - Framework : React 17.0.1
